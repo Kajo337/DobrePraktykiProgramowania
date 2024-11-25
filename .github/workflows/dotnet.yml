@@ -1,28 +1,84 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: CI/CD Pipeline for C# Application
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main  # Trigger the pipeline on push to the main branch
+    tags:
+      - 'v*'  # Trigger the pipeline for any tags like v1.0.0, v2.0.0, etc.
 
 jobs:
+  # CI job for building, testing, and linting
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      # Checkout the source code
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # Set up .NET SDK
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'  # Specify the .NET version to use
+
+      # Restore dependencies for the .NET project
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Run unit tests with code coverage collection
+      - name: Run tests with coverage
+        run: dotnet test --collect:"XPlat Code Coverage"
+
+      # Upload code coverage results to a coverage service (e.g., Codecov)
+      - name: Upload code coverage results
+        uses: codecov/codecov-action@v3
+        with:
+          file: $(System.DefaultWorkingDirectory)/TestResults/coverage.cobertura.xml
+
+      # Set up SuperLinter to lint the code
+      - name: Set up SuperLinter
+        uses: github/super-linter@v4
+        env:
+          RUN_LOCAL: true  # Run the linter locally
+          LINTER_RULES_PATH: .github/linters  # If you have custom linter rules
+
+      # Optional: Auto-format code with SuperLinter
+      - name: Format code with SuperLinter
+        run: |
+          super-linter --format --skip=python  # Skip formatting for Python files
+
+  # CD job for deployment (runs only when a tag is created)
+  deploy:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    needs: build  # This job will run only after the 'build' job is completed successfully
+    if: startsWith(github.ref, 'refs/tags/v')  # Only trigger this job on a version tag (e.g., v1.0.0)
+    steps:
+      # Checkout the source code again for the deployment job
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # Set up .NET SDK again for the deployment job
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+
+      # Build the project in Release configuration
+      - name: Build project
+        run: dotnet build --configuration Release
+
+      # Create a release package (e.g., zip file)
+      - name: Create release package
+        run: |
+          dotnet publish --configuration Release --output ./output  # Publish the app to the output folder
+          zip -r app-release-${GITHUB_REF#refs/tags/}.zip ./output  # Create a zip file with the release
+
+      # Create a GitHub Release with the generated package
+      - name: Create GitHub Release
+        uses: gh-action/github-release@v1.1.0  # GitHub action to create a release
+        with:
+          tag_name: ${{ github.ref }}  # Use the tag name for the release
+          files: app-release-${GITHUB_REF#refs/tags/}.zip  # Attach the zip package to the release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
