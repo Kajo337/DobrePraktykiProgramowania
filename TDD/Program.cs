@@ -1,323 +1,169 @@
-﻿using System;
-using Xunit;
-
-// Interfejs PaymentGateway
-public interface PaymentGateway
+﻿namespace TDDProgram
 {
-    TransactionResult Charge(string userId, double amount);
-    TransactionResult Refund(string transactionId);
-    TransactionStatus GetStatus(string transactionId);
-}
 
-// Interfejs ILogger
-public interface ILogger
-{
-    void Log(string message);
-}
-
-// Klasa PaymentProcessor
-public class PaymentProcessor
-{
-    private readonly PaymentGateway _gateway;
-    private readonly ILogger _logger;
-
-    public PaymentProcessor(PaymentGateway gateway, ILogger logger)
+    public interface PaymentGateway
     {
-        _gateway = gateway;
-        _logger = logger;
+        TransactionResult Charge(string userId, double amount);
+        TransactionResult Refund(string transactionId);
+        TransactionStatus GetStatus(string transactionId);
     }
 
-    public TransactionResult ProcessPayment(string userId, double amount)
+    public interface ILogger
     {
-        if (string.IsNullOrWhiteSpace(userId))
+        void Log(string message);
+    }
+
+    public class PaymentProcessor
+    {
+        private readonly PaymentGateway _gateway;
+        private readonly ILogger _logger;
+
+        public PaymentProcessor(PaymentGateway gateway, ILogger logger)
         {
-            var message = "Nieprawidłowy userId: pole jest puste.";
-            _logger.Log(message);
-            return new TransactionResult(false, null, message);
+            _gateway = gateway;
+            _logger = logger;
         }
 
-        if (amount <= 0)
+        public TransactionResult ProcessPayment(string userId, double amount)
         {
-            var message = "Kwota musi być dodatnia.";
-            _logger.Log(message);
-            return new TransactionResult(false, null, message);
-        }
-
-        try
-        {
-            var result = _gateway.Charge(userId, amount);
-            if (result.Success)
+            if (string.IsNullOrWhiteSpace(userId))
             {
-                _logger.Log("Płatność przetworzona pomyślnie.");
+                var message = "Nieprawidłowy userId: pole jest puste.";
+                _logger.Log(message);
+                return new TransactionResult(false, null, message);
             }
-            else
+
+            if (amount <= 0)
             {
-                _logger.Log($"Płatność nie powiodła się: {result.Message}");
+                var message = "Kwota musi być dodatnia.";
+                _logger.Log(message);
+                return new TransactionResult(false, null, message);
             }
-            return result;
-        }
-        catch (NetworkException ex)
-        {
-            var message = $"Błąd sieciowy: płatność nieudana. {ex.Message}";
-            _logger.Log(message);
-            return new TransactionResult(false, null, message);
-        }
-        catch (PaymentException ex)
-        {
-            var message = $"Błąd płatności: {ex.Message}";
-            _logger.Log(message);
-            return new TransactionResult(false, null, message);
-        }
-    }
 
-    public TransactionResult RefundPayment(string transactionId)
-    {
-        if (string.IsNullOrWhiteSpace(transactionId))
-        {
-            var message = "Nieprawidłowy transactionId: pole jest puste.";
-            _logger.Log(message);
-            return new TransactionResult(false, null, message);
-        }
-
-        try
-        {
-            var result = _gateway.Refund(transactionId);
-            if (result.Success)
+            try
             {
-                _logger.Log("Zwrot przetworzony pomyślnie.");
+                var result = _gateway.Charge(userId, amount);
+                if (result.Success)
+                {
+                    _logger.Log("Płatność przetworzona pomyślnie.");
+                }
+                else
+                {
+                    _logger.Log($"Płatność nie powiodła się: {result.Message}");
+                }
+                return result;
             }
-            else
+            catch (NetworkException ex)
             {
-                _logger.Log($"Zwrot nie powiódł się: {result.Message}");
+                var message = $"Błąd sieciowy: płatność nieudana. {ex.Message}";
+                _logger.Log(message);
+                return new TransactionResult(false, null, message);
             }
-            return result;
-        }
-        catch (NetworkException ex)
-        {
-            var message = $"Błąd sieciowy podczas zwrotu: {ex.Message}";
-            _logger.Log(message);
-            return new TransactionResult(false, null, message);
-        }
-        catch (RefundException ex)
-        {
-            var message = $"Błąd zwrotu: {ex.Message}";
-            _logger.Log(message);
-            return new TransactionResult(false, null, message);
-        }
-    }
-
-    public TransactionStatus GetPaymentStatus(string transactionId)
-    {
-        if (string.IsNullOrWhiteSpace(transactionId))
-        {
-            throw new ArgumentException("Nieprawidłowy transactionId: pole jest puste.", nameof(transactionId));
+            catch (PaymentException ex)
+            {
+                var message = $"Błąd płatności: {ex.Message}";
+                _logger.Log(message);
+                return new TransactionResult(false, null, message);
+            }
         }
 
-        try
+        public TransactionResult RefundPayment(string transactionId)
         {
-            var status = _gateway.GetStatus(transactionId);
-            _logger.Log($"Stan płatności: {status}");
-            return status;
+            if (string.IsNullOrWhiteSpace(transactionId))
+            {
+                var message = "Nieprawidłowy transactionId: pole jest puste.";
+                _logger.Log(message);
+                return new TransactionResult(false, null, message);
+            }
+
+            try
+            {
+                var result = _gateway.Refund(transactionId);
+                if (result.Success)
+                {
+                    _logger.Log("Zwrot przetworzony pomyślnie.");
+                }
+                else
+                {
+                    _logger.Log($"Zwrot nie powiódł się: {result.Message}");
+                }
+                return result;
+            }
+            catch (NetworkException ex)
+            {
+                var message = $"Błąd sieciowy podczas zwrotu: {ex.Message}";
+                _logger.Log(message);
+                return new TransactionResult(false, null, message);
+            }
+            catch (RefundException ex)
+            {
+                var message = $"Błąd zwrotu: {ex.Message}";
+                _logger.Log(message);
+                return new TransactionResult(false, null, message);
+            }
         }
-        catch (NetworkException)
+
+        public TransactionStatus GetPaymentStatus(string transactionId)
         {
-            throw new Exception("Błąd sieciowy podczas pobierania statusu.");
+            if (string.IsNullOrWhiteSpace(transactionId))
+            {
+                throw new ArgumentException("Nieprawidłowy transactionId: pole jest puste.");
+            }
+
+            try
+            {
+                var status = _gateway.GetStatus(transactionId);
+                _logger.Log($"Stan płatności: {status}");
+                return status;
+            }
+            catch (NetworkException)
+            {
+                throw new Exception("Błąd sieciowy podczas pobierania statusu.");
+            }
         }
     }
-}
 
-// Klasa pomocnicza: TransactionResult
-public class TransactionResult
-{
-    public bool Success { get; }
-    public string TransactionId { get; }
-    public string Message { get; }
-
-    public TransactionResult(bool success, string transactionId, string message)
+    public class TransactionResult
     {
-        Success = success;
-        TransactionId = transactionId;
-        Message = message;
-    }
-}
+        public bool Success { get; }
+        public string TransactionId { get; }
+        public string Message { get; }
 
-// Enum: TransactionStatus
-public enum TransactionStatus
-{
-    PENDING,
-    COMPLETED,
-    FAILED
-}
-
-// Wyjątki
-public class NetworkException : Exception
-{
-    public NetworkException(string message) : base(message) { }
-}
-
-public class PaymentException : Exception
-{
-    public PaymentException(string message) : base(message) { }
-}
-
-public class RefundException : Exception
-{
-    public RefundException(string message) : base(message) { }
-}
-
-// Stub do PaymentGateway
-public class StubPaymentGateway : PaymentGateway
-{
-    public TransactionResult ChargeResult { get; set; }
-    public TransactionResult RefundResult { get; set; }
-    public TransactionStatus GetStatusResult { get; set; }
-
-    public TransactionResult Charge(string userId, double amount)
-    {
-        return ChargeResult;
-    }
-
-    public TransactionResult Refund(string transactionId)
-    {
-        return RefundResult;
-    }
-
-    public TransactionStatus GetStatus(string transactionId)
-    {
-        return GetStatusResult;
-    }
-}
-
-// Stub do ILogger
-public class StubLogger : ILogger
-{
-    public string LastLog { get; private set; }
-
-    public void Log(string message)
-    {
-        LastLog = message;
-    }
-}
-
-// Testy jednostkowe
-public class PaymentProcessorTests
-{
-    [Fact]
-    public void ProcesujPlatnosc_PowinnoZwracacSukces_GdyPlatnoscZostalaPrzetworzonaPomyślnie()
-    {
-        // Arrange
-        var gateway = new StubPaymentGateway
+        public TransactionResult(bool success, string transactionId, string message)
         {
-            ChargeResult = new TransactionResult(true, "trans123", "Obciążenie zakończone sukcesem.")
-        };
-        var logger = new StubLogger();
-        var processor = new PaymentProcessor(gateway, logger);
-
-        // Act
-        var result = processor.ProcessPayment("user123", 150.00);
-
-        // Assert
-        Assert.True(result.Success);
-        Assert.Equal("trans123", result.TransactionId);
-        Assert.Equal("Obciążenie zakończone sukcesem.", result.Message);
-        Assert.Equal("Płatność przetworzona pomyślnie.", logger.LastLog);
+            Success = success;
+            TransactionId = transactionId;
+            Message = message;
+        }
     }
 
-    [Fact]
-    public void ProcesujPlatnosc_PowinnoZwracacNiepowodzenie_GdyUserIdJestPusty()
+    public enum TransactionStatus
     {
-        // Arrange
-        var gateway = new StubPaymentGateway();
-        var logger = new StubLogger();
-        var processor = new PaymentProcessor(gateway, logger);
-
-        // Act
-        var result = processor.ProcessPayment("", 150.00);
-
-        // Assert
-        Assert.False(result.Success);
-        Assert.Null(result.TransactionId);
-        Assert.Equal("Nieprawidłowy userId: pole jest puste.", result.Message);
-        Assert.Equal("Nieprawidłowy userId: pole jest puste.", logger.LastLog);
+        PENDING,
+        COMPLETED,
+        FAILED
     }
 
-    [Fact]
-    public void ProcesujPlatnosc_PowinnoZwracacNiepowodzenie_GdyKwotaJestUjemna()
+    public class NetworkException : Exception
     {
-        // Arrange
-        var gateway = new StubPaymentGateway();
-        var logger = new StubLogger();
-        var processor = new PaymentProcessor(gateway, logger);
-
-        // Act
-        var result = processor.ProcessPayment("user123", -50.00);
-
-        // Assert
-        Assert.False(result.Success);
-        Assert.Null(result.TransactionId);
-        Assert.Equal("Kwota musi być dodatnia.", result.Message);
-        Assert.Equal("Kwota musi być dodatnia.", logger.LastLog);
+        public NetworkException(string message) : base(message) { }
     }
 
-    [Fact]
-    public void DokonajZwrotu_PowinnoZwracacSukces_GdyZwrotZostaniePrzetworzonyPomyślnie()
+    public class PaymentException : Exception
     {
-        // Arrange
-        var gateway = new StubPaymentGateway
+        public PaymentException(string message) : base(message) { }
+    }
+
+    public class RefundException : Exception
+    {
+        public RefundException(string message) : base(message) { }
+    }
+
+    public class Program
+    {
+        public static void Main(string[] args)
         {
-            RefundResult = new TransactionResult(true, "trans123", "Zwrot zakończony sukcesem.")
-        };
-        var logger = new StubLogger();
-        var processor = new PaymentProcessor(gateway, logger);
-
-        // Act
-        var result = processor.RefundPayment("trans123");
-
-        // Assert
-        Assert.True(result.Success);
-        Assert.Equal("trans123", result.TransactionId);
-        Assert.Equal("Zwrot zakończony sukcesem.", result.Message);
-        Assert.Equal("Zwrot przetworzony pomyślnie.", logger.LastLog);
+        }
     }
 
-    [Fact]
-    public void PobierzStatusPlatnosci_PowinnoZwracacStatus_GdyTransakcjaIstnieje()
-    {
-        // Arrange
-        var gateway = new StubPaymentGateway
-        {
-            GetStatusResult = TransactionStatus.COMPLETED
-        };
-        var logger = new StubLogger();
-        var processor = new PaymentProcessor(gateway, logger);
-
-        // Act
-        var status = processor.GetPaymentStatus("trans123");
-
-        // Assert
-        Assert.Equal(TransactionStatus.COMPLETED, status);
-        Assert.Equal("Stan płatności: COMPLETED", logger.LastLog);
-    }
-
-    [Fact]
-    public void PobierzStatusPlatnosci_PowinnoRzucacWyjatek_GdyTransactionIdJestPusty()
-    {
-        // Arrange
-        var gateway = new StubPaymentGateway();
-        var logger = new StubLogger();
-        var processor = new PaymentProcessor(gateway, logger);
-
-        // Act & Assert
-        var ex = Assert.Throws<ArgumentException>(() => processor.GetPaymentStatus(""));
-        Assert.Equal("Nieprawidłowy transactionId: pole jest puste.", ex.Message);
-    }
-}
-
-// Metoda Main
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        
-    }
 }

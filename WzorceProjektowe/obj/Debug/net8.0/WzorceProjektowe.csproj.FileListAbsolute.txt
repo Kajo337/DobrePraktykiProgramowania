@@ -1,0 +1,17 @@
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\bin\Debug\net8.0\WzorceProjektowe.exe
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\bin\Debug\net8.0\WzorceProjektowe.deps.json
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\bin\Debug\net8.0\WzorceProjektowe.runtimeconfig.json
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\bin\Debug\net8.0\WzorceProjektowe.dll
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\bin\Debug\net8.0\WzorceProjektowe.pdb
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.AssemblyInfoInputs.cache
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.AssemblyInfo.cs
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.csproj.CoreCompileInputs.cache
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.dll
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\refint\WzorceProjektowe.dll
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.pdb
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.genruntimeconfig.cache
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\ref\WzorceProjektowe.dll
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorceProjektowe.csproj.AssemblyReference.cache
+C:\Users\kajto\source\repos\WzorceProjektowe\WzorceProjektowe\obj\Debug\net8.0\WzorcePr.F7ACCDD3.Up2Date

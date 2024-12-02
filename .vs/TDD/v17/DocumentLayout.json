@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Student1\\source\\repos\\DobrePraktykiProgramowania\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A4B5482F-0C27-457F-B147-A7B39F7D8400}|TestProject\\TestProject.csproj|c:\\users\\student1\\source\\repos\\dobrepraktykiprogramowania\\testproject\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4B5482F-0C27-457F-B147-A7B39F7D8400}|TestProject\\TestProject.csproj|solutionrelative:testproject\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9AFC439-DD9A-4684-922D-6E67DE09C146}|TDD\\TDD.csproj|c:\\users\\student1\\source\\repos\\dobrepraktykiprogramowania\\tdd\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9AFC439-DD9A-4684-922D-6E67DE09C146}|TDD\\TDD.csproj|solutionrelative:tdd\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\Student1\\source\\repos\\DobrePraktykiProgramowania\\TestProject\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "TestProject\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\Student1\\source\\repos\\DobrePraktykiProgramowania\\TestProject\\UnitTest1.cs",
+              "RelativeToolTip": "TestProject\\UnitTest1.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAASwGIAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T13:28:30.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Student1\\source\\repos\\DobrePraktykiProgramowania\\TDD\\Program.cs",
+              "RelativeDocumentMoniker": "TDD\\Program.cs",
+              "ToolTip": "C:\\Users\\Student1\\source\\repos\\DobrePraktykiProgramowania\\TDD\\Program.cs",
+              "RelativeToolTip": "TDD\\Program.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAkwIAAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T13:20:17.619Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,16 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "v+QrmrPr4eA=",
+  "dgSpecHash": "FaiNk2/KldE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kajto\\source\\repos\\TDD\\TDD\\TDD.csproj",
+  "projectFilePath": "C:\\Users\\Student1\\source\\repos\\DobrePraktykiProgramowania\\TDD\\TDD.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\kajto\\.nuget\\packages\\xunit\\2.9.2\\xunit.2.9.2.nupkg.sha512",
-    "C:\\Users\\kajto\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
-    "C:\\Users\\kajto\\.nuget\\packages\\xunit.analyzers\\1.16.0\\xunit.analyzers.1.16.0.nupkg.sha512",
-    "C:\\Users\\kajto\\.nuget\\packages\\xunit.assert\\2.9.2\\xunit.assert.2.9.2.nupkg.sha512",
-    "C:\\Users\\kajto\\.nuget\\packages\\xunit.core\\2.9.2\\xunit.core.2.9.2.nupkg.sha512",
-    "C:\\Users\\kajto\\.nuget\\packages\\xunit.extensibility.core\\2.9.2\\xunit.extensibility.core.2.9.2.nupkg.sha512",
-    "C:\\Users\\kajto\\.nuget\\packages\\xunit.extensibility.execution\\2.9.2\\xunit.extensibility.execution.2.9.2.nupkg.sha512"
+    "C:\\Users\\Student1\\.nuget\\packages\\xunit\\2.9.2\\xunit.2.9.2.nupkg.sha512",
+    "C:\\Users\\Student1\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\Student1\\.nuget\\packages\\xunit.analyzers\\1.16.0\\xunit.analyzers.1.16.0.nupkg.sha512",
+    "C:\\Users\\Student1\\.nuget\\packages\\xunit.assert\\2.9.2\\xunit.assert.2.9.2.nupkg.sha512",
+    "C:\\Users\\Student1\\.nuget\\packages\\xunit.core\\2.9.2\\xunit.core.2.9.2.nupkg.sha512",
+    "C:\\Users\\Student1\\.nuget\\packages\\xunit.extensibility.core\\2.9.2\\xunit.extensibility.core.2.9.2.nupkg.sha512",
+    "C:\\Users\\Student1\\.nuget\\packages\\xunit.extensibility.execution\\2.9.2\\xunit.extensibility.execution.2.9.2.nupkg.sha512"
   ],
   "logs": []
 }
